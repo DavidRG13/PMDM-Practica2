@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- APP & Activities -->
+
+    <string name="app_name">MercaFOC</string>
+    <string name="title_activity_add_product">Nuevo producto</string>
+    <string name="title_activity_details_product">Detalles producto</string>
+
+    <!-- ACTIONS -->
+
+    <string name="action_add">Añadir</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_modify">Modificar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_buy">Comprar</string>
+    <string name="action_tobuy">Apuntar</string>
+    <string name="action_bought">Comprado</string>
+
+    <!-- Product strings -->
+    <string name="name">Nombre:</string>
+    <string name="price">Precio:</string>
+    <string name="description">Descripción:</string>
+    <string name="category">Categoría:</string>
+    <string name="icon_description">icon</string>
+
+    <!-- Product category -->
+    <string-array name="product_category">
+        <item>comida</item>
+        <item>bebida</item>
+        <item>limpieza</item>
+        <item>dulces</item>
+    </string-array>
+    
+    
+    <!--  Drawer actions -->
+    <string-array name="drawer_actions">
+        <item>Pendientes</item>
+        <item>Comprados</item>
+        <item>Todos</item>
+    </string-array>
+    <string name="drawer_open">Abrir drawer</string>
+    <string name="drawer_close">Cerrar drawer</string>
+
+    <string name="title_activity_modify">ModifyActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
