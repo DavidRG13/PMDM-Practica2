@@ -1,13 +1,10 @@
 package com.foc.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
 import android.util.Log;
 
-public class ProductStore implements Store<Product>, Serializable {
+public class ProductStore implements Store<Product> {
 	
-	private static final long serialVersionUID = 2703901348158894622L;
 	private static final ProductStore instancia = new ProductStore();
 	private ArrayList<Product> lista;
 	

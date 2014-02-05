@@ -1,13 +1,21 @@
 package com.foc.model;
 
-public class Bought_Product extends Product{
+public class Bought_Product{
+	
+	private Product product;
 
-	public Bought_Product() {
-		super();
+	public Bought_Product() {}
+	
+	public Bought_Product (Product product){
+		this.product = product;
 	}
-
-	public Bought_Product(int code, String name, double price, String description, String image) {
-		super(code, name, price, description, image);
+	
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	public Product getProduct() {
+		return product;
 	}
 
 }

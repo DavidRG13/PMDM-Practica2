@@ -3,7 +3,7 @@ package com.foc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ToBuyProductStore implements Store<ToBuy_Product>, Serializable{
+public class ToBuyProductStore implements Store<ToBuy_Product>{
 	
 	private static ToBuyProductStore instancia = new ToBuyProductStore();
 	private ArrayList<ToBuy_Product> lista;

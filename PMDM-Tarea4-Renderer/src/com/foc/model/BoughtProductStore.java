@@ -3,7 +3,7 @@ package com.foc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BoughtProductStore implements Store<Bought_Product>, Serializable{
+public class BoughtProductStore implements Store<Bought_Product>{
 	
 	private static BoughtProductStore instancia = new BoughtProductStore();
 	private ArrayList<Bought_Product> lista;
@@ -14,7 +14,7 @@ public class BoughtProductStore implements Store<Bought_Product>, Serializable{
 	
 	private BoughtProductStore(){
 		lista = new ArrayList<Bought_Product>();
-		lista.add(new Bought_Product(4,"producto 4", 12.3, "descripcion 4", "dulces"));
+		lista.add(new Bought_Product(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces")));
 	}
 	
 	public ArrayList<Bought_Product> getList() {
@@ -28,7 +28,7 @@ public class BoughtProductStore implements Store<Bought_Product>, Serializable{
 
 	@Override
 	public void addProduct(String name, double price, String description, String icon) {
-		lista.add(new Bought_Product(getCodeForANewProduct(), name, price, description, icon));
+		lista.add(new Bought_Product(new Product(getCodeForANewProduct(), name, price, description, icon)));
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class BoughtProductStore implements Store<Bought_Product>, Serializable{
 	public Bought_Product findProduct(int productCode) {
 		for(Bought_Product actualProduct : lista){
 			if(actualProduct.getCode() == productCode)
-				return actualProduct;
+				return actualProduct;			
 		}
 		return null;
 	}
