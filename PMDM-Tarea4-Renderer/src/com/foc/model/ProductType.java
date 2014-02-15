@@ -75,6 +75,7 @@ public abstract class ProductType implements Serializable{
 	public abstract View renderProduct();
 
 	public void buildView(int viewResource) {
+		Log.d("AQUIII", "build view");
 		view = getLayoutInflater().inflate(viewResource, null);
 	}
 	

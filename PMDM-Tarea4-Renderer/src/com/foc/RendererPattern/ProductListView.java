@@ -45,6 +45,7 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	}
 	
 	private void initialize(){
+		Log.d("AQUIII", "Initialize list");
 		adapter = new Adapter(getContext(), data, this);
 		setAdapter(adapter);
 		setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);

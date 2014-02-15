@@ -23,7 +23,7 @@ public class General_Product extends ProductType {
 
 	@Override
 	public void inflate() {
-		super.buildView(R.layout.list_product_view);
+		buildView(R.layout.list_product_view);
 	}
 
 	@Override
@@ -38,6 +38,7 @@ public class General_Product extends ProductType {
 	}
 	
 	private void render(Product product){
+		Log.d("AQUIII", "rendel del producto");
 		renderIcon(product.getImage());
 		renderTitle(product.getName());
 		renderDescription(product.getDescription());

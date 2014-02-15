@@ -6,6 +6,7 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,25 +22,24 @@ public class Adapter extends ArrayAdapter<ProductType>{
 	private OnClickListenerProvider onClickListenerProvider;
 	
 	public Adapter(Context context, ArrayList<ProductType> datos, OnClickListenerProvider onClickListenerProvider) {
-		super(context, R.layout.list_product_view);
+		super(context, R.layout.list_product_view, datos);
 		this.datos = datos;
 		this.onClickListenerProvider = onClickListenerProvider;
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
-		ProductType product = super.getItem(position);
+		ProductType product = getItem(position);
 		product.setContext((Activity) getContext()); // funciona????? o tiene que ser Activity
 		product.setView(convertView);
+		Log.d("AQUIII", "get view");
 		product.setListener(onClickListenerProvider.getOnClickListener(position));
 		return product.render();
 	}
 	
 	@Override
 	public int getItemViewType(int position) {
-//		T product = getItem(position);
-//		return prb.getViewItemType(product);
-		return 0;
+		return IGNORE_ITEM_VIEW_TYPE;
 	}
 	
 	@Override
