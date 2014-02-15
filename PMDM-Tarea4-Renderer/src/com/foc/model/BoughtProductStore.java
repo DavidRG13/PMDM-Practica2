@@ -1,28 +1,27 @@
 package com.foc.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BoughtProductStore implements Store<Bought_Product>{
+public class BoughtProductStore implements Store{
 	
 	private static BoughtProductStore instancia = new BoughtProductStore();
-	private ArrayList<Bought_Product> lista;
+	private ArrayList<ProductType> lista;
 	
 	public static BoughtProductStore getStore(){
 		return instancia;
 	}
 	
 	private BoughtProductStore(){
-		lista = new ArrayList<Bought_Product>();
+		lista = new ArrayList<ProductType>();
 		lista.add(new Bought_Product(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces")));
 	}
 	
-	public ArrayList<Bought_Product> getList() {
+	public ArrayList<ProductType> getList() {
 		return lista;
 	}
 
 	@Override
-	public void addProduct(Bought_Product product) {
+	public void addProduct(ProductType product) {
 		lista.add(product);
 	}
 
@@ -32,7 +31,7 @@ public class BoughtProductStore implements Store<Bought_Product>{
 	}
 
 	@Override
-	public void updateProduct(Bought_Product updatedProduct) {
+	public void updateProduct(ProductType updatedProduct) {
 		//TODO funciona sin implementarlo?????
 	}
 
@@ -42,9 +41,9 @@ public class BoughtProductStore implements Store<Bought_Product>{
 	}
 
 	@Override
-	public Bought_Product findProduct(int productCode) {
-		for(Bought_Product actualProduct : lista){
-			if(actualProduct.getCode() == productCode)
+	public ProductType findProduct(int productCode) {
+		for(ProductType actualProduct : lista){
+			if(actualProduct.getProduct().getCode() == productCode)
 				return actualProduct;			
 		}
 		return null;
@@ -63,7 +62,8 @@ public class BoughtProductStore implements Store<Bought_Product>{
 		return -1;
 	}
 	
-	private int getCodeForANewProduct(){
+	@Override
+	public int getCodeForANewProduct(){
 		for(int i = 1; i < 1000; i++)
 			if(findProduct(i) == null)
 				return i;

@@ -1,11 +1,14 @@
 package com.foc.fragments;
 
 import java.io.Serializable;
+
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
+import com.foc.model.General_Product;
 import com.foc.model.ProductStore;
 import com.foc.tarea4.R;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -74,7 +77,7 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	
 	private void openAddActivity(){
 		Intent intent = new Intent(getActivity(), AddProductActivity.class);
-		intent.putExtra("store", (Serializable) ProductStore.getStore());
+		intent.putExtra("productType", (Serializable) new General_Product());
 		startActivity(intent);
 	}
 

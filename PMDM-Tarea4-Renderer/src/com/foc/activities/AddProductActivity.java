@@ -1,5 +1,7 @@
 package com.foc.activities;
 
+import com.foc.model.Product;
+import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.tarea4.R;
 
@@ -17,7 +19,7 @@ import android.os.Build;
 
 public class AddProductActivity extends Activity {
 	
-	private Store<?> store;
+	private ProductType productType;
 	private EditText editText_Name;
 	private EditText editText_Price;
 	private EditText editText_Desciption;
@@ -29,7 +31,7 @@ public class AddProductActivity extends Activity {
 		setContentView(R.layout.activity_add_product);
 		setupActionBar();
 		
-		store = (Store<?>) getIntent().getSerializableExtra("store");
+		productType = (ProductType) getIntent().getSerializableExtra("productType");
 		
 		spinner = (Spinner) findViewById(R.id.spinner_ProductCategory_input);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.product_category, android.R.layout.simple_spinner_item);
@@ -87,7 +89,8 @@ public class AddProductActivity extends Activity {
 		String description = editText_Desciption.getText().toString();
 		String icon = spinner.getSelectedItem().toString();
 		Log.e("AQUIIII", "llamada al añadir producto");
-		store.addProduct(name, price, description, icon);
+		productType.setProduct(name, price, description, icon);
+		productType.getStore().addProduct(productType);
 		closeActivity();
 	}
 

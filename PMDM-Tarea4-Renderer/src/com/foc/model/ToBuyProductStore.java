@@ -1,40 +1,39 @@
 package com.foc.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ToBuyProductStore implements Store<ToBuy_Product>{
+public class ToBuyProductStore implements Store{
 	
 	private static ToBuyProductStore instancia = new ToBuyProductStore();
-	private ArrayList<ToBuy_Product> lista;
+	private ArrayList<ProductType> lista;
 	
 	public static ToBuyProductStore getStore(){
 		return instancia;
 	}
 	
 	private ToBuyProductStore(){
-		lista = new ArrayList<ToBuy_Product>();
-		lista.add(new ToBuy_Product(3,"producto 3", 12.3, "descripcion 3", "limpieza"));
-		lista.add(new ToBuy_Product(2,"producto 2", 12.3, "descripcion 2", "bebida"));
-		lista.add(new ToBuy_Product(1,"producto 1", 12.3, "descripcion 1", "comida"));
+		lista = new ArrayList<ProductType>();
+		lista.add(new ToBuy_Product(new Product(3,"producto 3", 12.3, "descripcion 3", "limpieza")));
+		lista.add(new ToBuy_Product(new Product(2,"producto 2", 12.3, "descripcion 2", "bebida")));
+		lista.add(new ToBuy_Product(new Product(1,"producto 1", 12.3, "descripcion 1", "comida")));
 	}
 	
-	public ArrayList<ToBuy_Product> getList() {
+	public ArrayList<ProductType> getList() {
 		return lista;
 	}
 
 	@Override
-	public void addProduct(ToBuy_Product product) {
+	public void addProduct(ProductType product) {
 		lista.add(product);
 	}
 
 	@Override
 	public void addProduct(String name, double price, String description, String icon) {
-		lista.add(new ToBuy_Product(getCodeForANewProduct(), name, price, description, icon));
+		lista.add(new ToBuy_Product(new Product(getCodeForANewProduct(), name, price, description, icon)));
 	}
 
 	@Override
-	public void updateProduct(ToBuy_Product updatedProduct) {
+	public void updateProduct(ProductType updatedProduct) {
 		//TODO funciona sin implementarlo?????
 	}
 
@@ -44,9 +43,9 @@ public class ToBuyProductStore implements Store<ToBuy_Product>{
 	}
 
 	@Override
-	public ToBuy_Product findProduct(int productCode) {
-		for(ToBuy_Product actualProduct : lista){
-			if(actualProduct.getCode() == productCode)
+	public ProductType findProduct(int productCode) {
+		for(ProductType actualProduct : lista){
+			if(actualProduct.getProduct().getCode() == productCode)
 				return actualProduct;
 		}
 		return null;
@@ -65,7 +64,8 @@ public class ToBuyProductStore implements Store<ToBuy_Product>{
 		return -1;
 	}
 	
-	private int getCodeForANewProduct(){
+	@Override
+	public int getCodeForANewProduct(){
 		for(int i = 1; i < 1000; i++)
 			if(findProduct(i) == null)
 				return i;

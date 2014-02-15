@@ -3,6 +3,7 @@ package com.foc.activities;
 import java.io.Serializable;
 
 import com.foc.model.Product;
+import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.tarea4.R;
 
@@ -19,8 +20,8 @@ import android.widget.TextView;
 public class DetailsProductActivity extends Activity {
 	
 	private int productCode;
-	private Product product;
-	private Store<?> store;
+	private ProductType product;
+	private Store store;
 	private TextView name;
 	private TextView price;
 	private TextView description;
@@ -34,7 +35,7 @@ public class DetailsProductActivity extends Activity {
 		
 		Bundle bundle = getIntent().getExtras();
 		productCode = bundle.getInt("productCode");
-		store = (Store<?>) getIntent().getSerializableExtra("Store");
+		store = (Store) getIntent().getSerializableExtra("Store");
 		product = store.findProduct(productCode);
 	}
 	
@@ -82,20 +83,20 @@ public class DetailsProductActivity extends Activity {
 	}
 	
 	private void fillFieldsWithData() {
-		name.setText(product.getName());
-		price.setText(String.valueOf(product.getPrice()));
-		description.setText(product.getDescription());
-		category.setText(product.getImage());
+		name.setText(product.getProduct().getName());
+		price.setText(String.valueOf(product.getProduct().getPrice()));
+		description.setText(product.getProduct().getDescription());
+		category.setText(product.getProduct().getImage());
 	}
 	
 	private void deleteProduct(){
-		store.removeProduct(product.getCode());
+		store.removeProduct(product.getProduct().getCode());
 		finish();
 	}
 
 	private void openModifyActivity() {
 		Intent intent = new Intent(this, ModifyActivity.class);
-		intent.putExtra("productCode", product.getCode());
+		intent.putExtra("productCode", product.getProduct().getCode());
 		intent.putExtra("store", (Serializable) store);
 		startActivity(intent);
 	}

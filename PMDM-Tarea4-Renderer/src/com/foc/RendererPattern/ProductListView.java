@@ -2,10 +2,6 @@ package com.foc.RendererPattern;
 
 import java.util.ArrayList;
 
-import com.foc.adapters.Adapter;
-import com.foc.model.Product;
-import com.foc.tarea4.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,13 +10,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ListView;
+
+import com.foc.adapters.Adapter;
+import com.foc.model.ProductType;
+import com.foc.tarea4.R;
 
 public class ProductListView extends ListView implements OnItemClickListener, OnItemLongClickListener, OnClickListenerProvider{
 	
-	private ArrayList data;
+	private ArrayList<ProductType> data;
 	private Adapter adapter;
 	private ProductListObserver observer;
 	private int idContextualMenu;
@@ -37,7 +37,7 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 		super(context, attrs, defStyle);
 	}
 
-	public void init(ArrayList data, ProductListObserver observer, int idContextualMenu){;
+	public void init(ArrayList<ProductType> data, ProductListObserver observer, int idContextualMenu){;
 		this.observer = observer;
 		this.data = data;
 		this.idContextualMenu = idContextualMenu;
@@ -45,8 +45,7 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	}
 	
 	private void initialize(){
-		ProductRendererBuilder prb = new ProductRendererBuilder(getContext(), this);
-		adapter = new Adapter(prb, data);
+		adapter = new Adapter(getContext(), data, this);
 		setAdapter(adapter);
 		setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		setMultiChoiceModeListener(new MultiChoiceModeListener() {
@@ -109,8 +108,8 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
-		Product product = (Product) adapter.getItem(position);
-		observer.onListItemClick(product.getCode());
+		ProductType product = (ProductType) adapter.getItem(position);
+		observer.onListItemClick(product.getProduct().getCode());
 	}
 	
 	@Override

@@ -3,41 +3,41 @@ package com.foc.model;
 import java.util.ArrayList;
 import android.util.Log;
 
-public class ProductStore implements Store<Product> {
+public class ProductStore implements Store {
 	
 	private static final ProductStore instancia = new ProductStore();
-	private ArrayList<Product> lista;
+	private ArrayList<ProductType> lista;
 	
 	public static synchronized ProductStore getStore(){
 		return instancia;
 	}
 	
 	private ProductStore() {
-		lista = new ArrayList<Product>();
-		lista.add(new Product(1,"producto 1", 12.3, "descripcion 1", "comida"));
-		lista.add(new Product(2,"producto 2", 12.3, "descripcion 2", "bebida"));
-		lista.add(new Product(3,"producto 3", 12.3, "descripcion 3", "limpieza"));
-		lista.add(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces"));
+		lista = new ArrayList<ProductType>();
+		lista.add(new General_Product(new Product(1,"producto 1", 12.3, "descripcion 1", "comida")));
+		lista.add(new General_Product(new Product(2,"producto 2", 12.3, "descripcion 2", "bebida")));
+		lista.add(new General_Product(new Product(3,"producto 3", 12.3, "descripcion 3", "limpieza")));
+		lista.add(new General_Product(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces")));
 	}
 	
-	public ArrayList<Product> getList() {
+	public ArrayList<ProductType> getList() {
 		return lista;
 	}
 	
 	@Override
-	public void addProduct(Product product){
+	public void addProduct(ProductType product){
 		lista.add(product);
 	}
 	
 	@Override
 	public void addProduct(String name, double price, String description, String icon){
-		lista.add(new Product(getCodeForANewProduct(), name, price, description, icon));
+		lista.add(new General_Product(new Product(getCodeForANewProduct(), name, price, description, icon)));
 		Log.e("AQUIIII", "tamaño lista "+ lista.size());
 		Log.e("AQUIIII", "instancia "+ this.toString());
 	}
 	
 	@Override
-	public void updateProduct(Product updatedProduct){
+	public void updateProduct(ProductType updatedProduct){
 		//TODO funciona sin implementarlo?????
 	}
 	
@@ -47,9 +47,9 @@ public class ProductStore implements Store<Product> {
 	}
 	
 	@Override
-	public Product findProduct(int productCode) {
-		for(Product actualProduct : lista){
-			if(actualProduct.getCode() == productCode)
+	public ProductType findProduct(int productCode) {
+		for(ProductType actualProduct : lista){
+			if(actualProduct.getProduct().getCode() == productCode)
 				return actualProduct;
 		}
 		return null;
@@ -68,7 +68,8 @@ public class ProductStore implements Store<Product> {
 		return -1;
 	}
 	
-	private int getCodeForANewProduct(){
+	@Override
+	public int getCodeForANewProduct(){
 		for(int i = 1; i < 1000; i++)
 			if(findProduct(i) == null)
 				return i;

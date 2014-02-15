@@ -16,25 +16,23 @@ import com.foc.tarea4.R;
 public class BoughtProducts_Fragment extends Fragment implements ProductListObserver{
 	
 	private ProductListView lview;
-	private Store<?> store;
 	
 	public BoughtProducts_Fragment() {}
 	
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		setHasOptionsMenu(true);  
-		store = BoughtProductStore.getStore();
+		setHasOptionsMenu(true);
 		
 		View view = inflater.inflate(R.layout.fragment_bought_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_bought_products);
-		lview.init(store.getList(), this, R.menu.delete);
+		lview.init(BoughtProductStore.getStore().getList(), this, R.menu.delete);
 		return view;
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		lview.notifyChanges(store.getList());
+		lview.notifyChanges(BoughtProductStore.getStore().getList());
 	}
 	
 	@Override

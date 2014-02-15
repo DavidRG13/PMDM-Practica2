@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class ProductsToBuy_Fragment extends Fragment implements ProductListObserver{
 	
 	private ProductListView lview;
-	private Store<?> store;
+	private Store store;
 	
 	public ProductsToBuy_Fragment() {}
 	

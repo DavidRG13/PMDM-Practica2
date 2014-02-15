@@ -1,25 +1,25 @@
 package com.foc.activities;
 
-import com.foc.model.Product;
-import com.foc.model.ProductStore;
-import com.foc.model.Store;
-import com.foc.tarea4.R;
-
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.os.Build;
+
+import com.foc.model.ProductStore;
+import com.foc.model.ProductType;
+import com.foc.model.Store;
+import com.foc.tarea4.R;
 
 public class ModifyActivity extends Activity {
 	
-	private Product product;
+	private ProductType product;
 	private EditText name_textView;
 	private EditText price_textView;
 	private EditText description_textView;
@@ -34,7 +34,7 @@ public class ModifyActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		int productCode = bundle.getInt("productCode");
 		
-		Store<?> store = (Store<?>) getIntent().getSerializableExtra("Store");
+		Store store = (Store) getIntent().getSerializableExtra("Store");
 		product = store.findProduct(productCode);
 		
 		Toast.makeText(this, "codigo:"+ productCode, Toast.LENGTH_LONG).show();
@@ -84,10 +84,10 @@ public class ModifyActivity extends Activity {
 	}
 	
 	private void fillFieldsWithData() {
-		name_textView.setText(product.getName());
-		price_textView.setText(String.valueOf(product.getPrice()));
-		description_textView.setText(product.getDescription());
-		String cat = product.getImage();
+		name_textView.setText(product.getProduct().getName());
+		price_textView.setText(String.valueOf(product.getProduct().getPrice()));
+		description_textView.setText(product.getProduct().getDescription());
+		String cat = product.getProduct().getImage();
 		category.setSelection(ProductStore.getStore().getCategoryIndex(cat));
 	}
 	
@@ -105,10 +105,10 @@ public class ModifyActivity extends Activity {
 		String description = description_textView.getText().toString();
 		String icon = category.getSelectedItem().toString();
 		
-		product.setName(name);
-		product.setPrice(price);
-		product.setDescription(description);
-		product.setImage(icon);
+		product.getProduct().setName(name);
+		product.getProduct().setPrice(price);
+		product.getProduct().setDescription(description);
+		product.getProduct().setImage(icon);
 		closeActivity();
 	}
 
