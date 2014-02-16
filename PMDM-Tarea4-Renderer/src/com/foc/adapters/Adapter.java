@@ -3,27 +3,22 @@ package com.foc.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
 import com.foc.RendererPattern.OnClickListenerProvider;
 import com.foc.model.ProductType;
 import com.foc.tarea4.R;
 
 public class Adapter extends ArrayAdapter<ProductType>{
 	
-	private ArrayList<ProductType> datos;
 	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 	private OnClickListenerProvider onClickListenerProvider;
 	
 	public Adapter(Context context, ArrayList<ProductType> datos, OnClickListenerProvider onClickListenerProvider) {
 		super(context, R.layout.list_product_view, datos);
-		this.datos = datos;
 		this.onClickListenerProvider = onClickListenerProvider;
 	}
 	
@@ -32,7 +27,6 @@ public class Adapter extends ArrayAdapter<ProductType>{
 		ProductType product = getItem(position);
 		product.setContext((Activity) getContext()); // funciona????? o tiene que ser Activity
 		product.setView(convertView);
-		Log.d("AQUIII", "get view");
 		product.setListener(onClickListenerProvider.getOnClickListener(position));
 		return product.render();
 	}
@@ -44,7 +38,7 @@ public class Adapter extends ArrayAdapter<ProductType>{
 	
 	@Override
 	public int getViewTypeCount() {
-		return datos.size();
+		return getCount();
 	}
 	
 	public void setNewSelection(int position, boolean value) {

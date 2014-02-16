@@ -1,7 +1,6 @@
 package com.foc.model;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -11,6 +10,8 @@ import com.foc.tarea4.R;
 
 public class General_Product extends ProductType {
 	
+	private static final long serialVersionUID = 4438038195286614625L;
+
 	public General_Product (Activity context, View view, Product product, OnClickListener listener){
 		super(context, view, product, listener);
 	}
@@ -38,7 +39,6 @@ public class General_Product extends ProductType {
 	}
 	
 	private void render(Product product){
-		Log.d("AQUIII", "rendel del producto");
 		renderIcon(product.getImage());
 		renderTitle(product.getName());
 		renderDescription(product.getDescription());
@@ -72,8 +72,6 @@ public class General_Product extends ProductType {
 	}
 	
 	public void setProduct(String name, double price, String description, String icon) {
-		if(ProductStore.getStore() == null)
-			Log.d("AQUIII", "store es nulo!!!!!!!");
 		int code = ProductStore.getStore().getCodeForANewProduct();
 		setProduct(new Product(code, name, price, description, icon));
 	}

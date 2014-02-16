@@ -5,14 +5,16 @@ import java.io.Serializable;
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
+import com.foc.activities.DetailsProductActivity;
 import com.foc.model.General_Product;
+import com.foc.model.Product;
 import com.foc.model.ProductStore;
+import com.foc.model.ProductType;
 import com.foc.tarea4.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,10 +40,6 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	@Override
 	public void onResume() {
 		super.onResume();
-		
-		Log.e("AQUIIII", "on resume del allFragment");
-		Log.e("AQUIIII", "tamanio aqui  "+ ProductStore.getStore().getList().size());
-		Log.e("AQUIIII", "instancia "+ ProductStore.getStore().toString());
 		lview.notifyChanges(ProductStore.getStore().getList());
 	}
 	
@@ -49,7 +47,7 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.action_add:
-	            openAddActivity();
+	        	openActivity(AddProductActivity.class, new General_Product());
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -58,7 +56,12 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	
 	@Override
 	public void onListItemClick(int productCode) {
+		ProductType productType = new General_Product();
+		Product product = new Product();
+		product.setCode(productCode);
+		productType.setProduct(product);
 		
+		openActivity(DetailsProductActivity.class, productType);
 	}
 	
 	@Override
@@ -75,9 +78,9 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 		}
 	}
 	
-	private void openAddActivity(){
-		Intent intent = new Intent(getActivity(), AddProductActivity.class);
-		intent.putExtra("productType", (Serializable) new General_Product());
+	private void openActivity(Class<?> cls, ProductType product){
+		Intent intent = new Intent(getActivity(), cls);
+		intent.putExtra("productType", (Serializable) product);
 		startActivity(intent);
 	}
 

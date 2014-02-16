@@ -1,12 +1,8 @@
 package com.foc.activities;
 
 import java.io.Serializable;
-
-import com.foc.model.Product;
 import com.foc.model.ProductType;
-import com.foc.model.Store;
 import com.foc.tarea4.R;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
@@ -19,9 +15,7 @@ import android.widget.TextView;
 
 public class DetailsProductActivity extends Activity {
 	
-	private int productCode;
 	private ProductType product;
-	private Store store;
 	private TextView name;
 	private TextView price;
 	private TextView description;
@@ -33,10 +27,8 @@ public class DetailsProductActivity extends Activity {
 		setContentView(R.layout.activity_details_product);
 		setupActionBar();
 		
-		Bundle bundle = getIntent().getExtras();
-		productCode = bundle.getInt("productCode");
-		store = (Store) getIntent().getSerializableExtra("Store");
-		product = store.findProduct(productCode);
+		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
+		product = productType.getStore().findProduct(productType.getProduct().getCode());
 	}
 	
 	@Override
@@ -90,14 +82,13 @@ public class DetailsProductActivity extends Activity {
 	}
 	
 	private void deleteProduct(){
-		store.removeProduct(product.getProduct().getCode());
+		product.getStore().removeProduct(product.getProduct().getCode());
 		finish();
 	}
 
 	private void openModifyActivity() {
 		Intent intent = new Intent(this, ModifyActivity.class);
-		intent.putExtra("productCode", product.getProduct().getCode());
-		intent.putExtra("store", (Serializable) store);
+		intent.putExtra("productType", (Serializable) product);
 		startActivity(intent);
 	}
 
