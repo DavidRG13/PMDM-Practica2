@@ -23,8 +23,9 @@ public class ToBuyProductStore implements Store{
 	}
 
 	@Override
-	public void addProduct(ProductType product) {
-		lista.add(product);
+	public void addProduct(ProductType... products) {
+		for(ProductType p : products)
+			addProduct(p.getProductName(), p.getProductPrice(), p.getProductDescription(), p.getProductImage());
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class ToBuyProductStore implements Store{
 	}
 
 	@Override
-	public void removeProduct(int code) {
+	public void remove(int code) {
 		lista.remove(findProduct(code));
 	}
 	

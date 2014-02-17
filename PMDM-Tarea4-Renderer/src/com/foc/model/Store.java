@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public interface Store{
 	
-	public abstract ArrayList<ProductType> getList();
+	public ArrayList<ProductType> getList();
 	
-	public abstract void addProduct(ProductType object);
+	public void addProduct(ProductType... products);
 
-	public abstract void addProduct(String name, double price, String description, String icon);
+	public void addProduct(String name, double price, String description, String icon);
 
-	public abstract void updateProduct(ProductType updatedProduct);
+	public void updateProduct(ProductType updatedProduct);
 
-	public abstract void removeProduct(int i);
+	public void remove(int code);
 
-	public abstract ProductType findProduct(int productCode);
+	public void remove(ArrayList<Integer> productPositions);
 
-	public abstract int getCategoryIndex(String category);
+	public ProductType findProduct(int productCode);
+
+	public int getCategoryIndex(String category);
 	
 	public int getCodeForANewProduct();
-
-	void remove(ArrayList<Integer> productPositions);
 
 }

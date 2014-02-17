@@ -87,7 +87,7 @@ public class DetailsProductActivity extends Activity {
 	}
 	
 	private void deleteProduct(){
-		product.getStore().removeProduct(product.getProductCode());
+		product.getStore().remove(product.getProductCode());
 		finish();
 	}
 

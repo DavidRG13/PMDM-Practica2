@@ -72,8 +72,8 @@ public class AddProductActivity extends Activity {
 		double price = Double.parseDouble(editText_Price.getText().toString());
 		String description = editText_Desciption.getText().toString();
 		String icon = spinner.getSelectedItem().toString();
-		productType.setProduct(name, price, description, icon);
-		productType.getStore().addProduct(productType);
+		
+		productType.getStore().addProduct(name, price, description, icon);
 		finish();
 	}
 
