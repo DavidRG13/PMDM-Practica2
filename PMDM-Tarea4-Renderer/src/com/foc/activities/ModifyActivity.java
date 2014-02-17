@@ -5,14 +5,14 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.foc.model.ProductStore;
+import com.foc.model.Product;
 import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.tarea4.R;
@@ -31,13 +31,8 @@ public class ModifyActivity extends Activity {
 		setContentView(R.layout.activity_add_product);
 		setupActionBar();
 		
-		Bundle bundle = getIntent().getExtras();
-		int productCode = bundle.getInt("productCode");
-		
-		Store store = (Store) getIntent().getSerializableExtra("Store");
-		product = store.findProduct(productCode);
-		
-		Toast.makeText(this, "codigo:"+ productCode, Toast.LENGTH_LONG).show();
+		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
+		product = productType.getStore().findProduct(productType.getProductCode());
 		
 		name_textView = (EditText) findViewById(R.id.editText_ProductName_input);
 		price_textView = (EditText) findViewById(R.id.editText_ProductPrice_input);
@@ -51,14 +46,10 @@ public class ModifyActivity extends Activity {
 		fillFieldsWithData();
 	}
 
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override
@@ -77,7 +68,7 @@ public class ModifyActivity extends Activity {
             modifyProduct();
             return true;
 		case R.id.action_cancel:
-            closeActivity();
+            finish();
             return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -88,28 +79,20 @@ public class ModifyActivity extends Activity {
 		price_textView.setText(String.valueOf(product.getProductPrice()));
 		description_textView.setText(product.getProductDescription());
 		String cat = product.getProductImage();
-		category.setSelection(ProductStore.getStore().getCategoryIndex(cat));
+		category.setSelection(product.getStore().getCategoryIndex(cat));
 	}
 	
-	private void closeActivity() {
-		try {
-			finish();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void modifyProduct() {
 		String name = name_textView.getText().toString();
 		double price = Double.parseDouble(price_textView.getText().toString());
 		String description = description_textView.getText().toString();
 		String icon = category.getSelectedItem().toString();
+		Log.d("modifi", name);
 		
-		product.getProduct().setName(name);
-		product.getProduct().setPrice(price);
-		product.getProduct().setDescription(description);
-		product.getProduct().setImage(icon);
-		closeActivity();
+		product.setProduct(new Product(product.getProductCode(), name, price, description, icon));
+		Store store = product.getStore();
+		store.updateProduct(product);
+		finish();
 	}
 
 }

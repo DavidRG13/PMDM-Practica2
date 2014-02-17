@@ -1,25 +1,29 @@
 package com.foc.activities;
 
-import java.io.Serializable;
-import com.foc.model.ProductType;
-import com.foc.tarea4.R;
-import android.os.Build;
-import android.os.Bundle;
+import static utilities.IntentFragmentLauncher.openActivity;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.foc.model.Product;
+import com.foc.model.ProductType;
+import com.foc.model.Store;
+import com.foc.tarea4.R;
 
 public class DetailsProductActivity extends Activity {
 	
 	private ProductType product;
+	private int actualProductCode;
 	private TextView name;
 	private TextView price;
 	private TextView description;
 	private TextView category;
+	private Store store;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +32,15 @@ public class DetailsProductActivity extends Activity {
 		setupActionBar();
 		
 		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
-		product = productType.getStore().findProduct(productType.getProductCode());
+		store = productType.getStore();
+		actualProductCode = productType.getProductCode();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
+		product = store.findProduct(actualProductCode);
+		Log.d("AQUII", product.getProduct().toString());
 		name = (TextView) findViewById(R.id.textView_ProductName_output);
 		price = (TextView) findViewById(R.id.textView_ProductPrice_output);
 		description = (TextView) findViewById(R.id.textView_ProductDescription_output);
@@ -61,7 +68,10 @@ public class DetailsProductActivity extends Activity {
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_modify:
-            openModifyActivity();
+			Product p = product.getProduct();
+			product.clear();
+			product.setProduct(p);
+            openActivity(this, ModifyActivity.class, product);
             return true;
 		case R.id.action_delete:
             deleteProduct();
@@ -80,12 +90,6 @@ public class DetailsProductActivity extends Activity {
 	private void deleteProduct(){
 		product.getStore().removeProduct(product.getProductCode());
 		finish();
-	}
-
-	private void openModifyActivity() {
-		Intent intent = new Intent(this, ModifyActivity.class);
-		intent.putExtra("productType", (Serializable) product);
-		startActivity(intent);
 	}
 
 }

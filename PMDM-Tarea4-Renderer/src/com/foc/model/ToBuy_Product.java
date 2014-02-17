@@ -70,7 +70,7 @@ public class ToBuy_Product extends ProductType{
 	}
 	
 	public void setProduct(String name, double price, String description, String icon) {
-		int code = ToBuyProductStore.getStore().getCodeForANewProduct();
+		int code = getStore().getCodeForANewProduct();
 		setProduct(new Product(code, name, price, description, icon));
 	}
 

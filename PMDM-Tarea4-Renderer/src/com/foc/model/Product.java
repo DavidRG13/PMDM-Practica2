@@ -24,6 +24,11 @@ public class Product  implements Serializable{
 		this.image = image;
 	}
 	
+	@Override
+	public String toString() {
+		return "code: "+ code +", name: "+ name +", price: "+ price;
+	}
+	
 	public int getCode() {
 		return code;
 	}

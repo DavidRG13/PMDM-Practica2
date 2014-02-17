@@ -26,6 +26,13 @@ public abstract class ProductType implements Serializable{
 	public ProductType(Product product) {
 		this.product = product;		
 	}
+	
+	public void clear(){
+		this.context = null;
+		this.view = null;
+		this.product = null;
+		this.listener = null;
+	}
 
 	public View getView() {
 		return view;
