@@ -57,7 +57,6 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 			@Override
 			public void onDestroyActionMode(ActionMode mode) {
 				clearSelection();
-				deselectItems();
 			}
 			
 			@Override
@@ -76,7 +75,6 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 			
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-				// funciona este checked o necesito preguntar si la posicion esta chaked o no
 				if(checked)
 					setNewSelection(position);
 				else
@@ -103,7 +101,6 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 
 	protected void clearSelection() {
 		productCodeSelected.clear();
-		deselectItems();
 	}
 	
 	protected void removeSelection(int code){
@@ -139,29 +136,11 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	
 	private void itemChecked(View view, int position) {
 		setItemChecked(position, !isPositionChecked(position));
-		if(!isPositionChecked(position))
-			uncheckItem(view);
-		else
-			checkItem(view);
 	}
 	
 	public void notifyChanges(ArrayList<ProductType> list){
 		data = list;
 		adapter.notifyDataSetChanged();
-		deselectItems();
-	}
-	
-	private void deselectItems(){
-		for(int i = 0; i < getChildCount(); i++)
-			uncheckItem(getChildAt(i));
-	}
-	
-	private void checkItem(View view){
-		view.setBackgroundColor(getResources().getColor(R.color.checked_color));
-	}
-	
-	private void uncheckItem(View view){
-		view.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 	}
 	
 	private class ImageViewClickListener implements OnClickListener{

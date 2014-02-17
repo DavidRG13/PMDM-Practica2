@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -87,7 +86,6 @@ public class ModifyActivity extends Activity {
 		double price = Double.parseDouble(price_textView.getText().toString());
 		String description = description_textView.getText().toString();
 		String icon = category.getSelectedItem().toString();
-		Log.d("modifi", name);
 		
 		product.setProduct(new Product(product.getProductCode(), name, price, description, icon));
 		Store store = product.getStore();

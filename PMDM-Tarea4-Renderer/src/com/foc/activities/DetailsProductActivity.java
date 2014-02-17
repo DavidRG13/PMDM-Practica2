@@ -6,10 +6,10 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import com.foc.model.Product;
 import com.foc.model.ProductType;
 import com.foc.model.Store;
@@ -40,7 +40,6 @@ public class DetailsProductActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		product = store.findProduct(actualProductCode);
-		Log.d("AQUII", product.getProduct().toString());
 		name = (TextView) findViewById(R.id.textView_ProductName_output);
 		price = (TextView) findViewById(R.id.textView_ProductPrice_output);
 		description = (TextView) findViewById(R.id.textView_ProductDescription_output);

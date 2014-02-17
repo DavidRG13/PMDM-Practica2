@@ -2,8 +2,6 @@ package com.foc.model;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class ProductStore implements Store {
 	
 	private static final ProductStore instancia = new ProductStore();
@@ -38,13 +36,8 @@ public class ProductStore implements Store {
 	@Override
 	public void updateProduct(ProductType updatedProduct){
 		for(ProductType p : lista)
-			if(p.getProductCode() == updatedProduct.getProductCode()){
-				Log.d("AQUII", "producto encontrado");
-				Log.d("antes", p.getProduct().toString());
+			if(p.getProductCode() == updatedProduct.getProductCode())
 				p.setProduct(updatedProduct.getProduct());
-				Log.d("despues", p.getProduct().toString());
-			}
-		Log.d("despues General", findProduct(updatedProduct.getProductCode()).getProduct().toString());
 	}
 	
 	@Override
