@@ -1,5 +1,6 @@
 package com.foc.fragments;
 
+import static utilities.IntentFragmentLauncher.openActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
+import com.foc.activities.DetailsProductActivity;
 import com.foc.model.BoughtProductStore;
-import com.foc.model.Store;
+import com.foc.model.Bought_Product;
+import com.foc.model.Product;
+import com.foc.model.ProductType;
 import com.foc.tarea4.R;
 
 public class BoughtProducts_Fragment extends Fragment implements ProductListObserver{
@@ -43,14 +47,17 @@ public class BoughtProducts_Fragment extends Fragment implements ProductListObse
 
 	@Override
 	public void onListItemClick(int productCode) {
+		ProductType productType = new Bought_Product();
+		productType.setProduct(new Product(productCode));
 		
+		openActivity(getActivity(), DetailsProductActivity.class, productType);
 	}
 
 	@Override
 	public void actionItemClicked(int itemId) {
 		switch (itemId) {
 		case R.id.action_delete_contextual:
-			//TODO delete products
+			BoughtProductStore.getStore().remove(lview.getProductCodeSelected());
 			break;
 		default:
 			break;
