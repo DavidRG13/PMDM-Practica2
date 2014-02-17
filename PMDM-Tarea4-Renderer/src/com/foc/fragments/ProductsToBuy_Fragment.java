@@ -1,25 +1,25 @@
 package com.foc.fragments;
 
 import static utilities.IntentFragmentLauncher.openActivity;
-
+import java.util.ArrayList;
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
 import com.foc.activities.DetailsProductActivity;
+import com.foc.model.BoughtProductStore;
 import com.foc.model.Product;
-import com.foc.model.ProductStore;
 import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.model.ToBuyProductStore;
 import com.foc.model.ToBuy_Product;
 import com.foc.tarea4.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class ProductsToBuy_Fragment extends Fragment implements ProductListObserver{
 	
@@ -70,8 +70,11 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 		case R.id.action_delete_contextual:
 			store.remove(lview.getProductCodeSelected());
 			break;
-		case R.id.action_buy_contextual:
-			//TODO buy products
+		case R.id.action_bought_contextual:
+			ArrayList<ProductType> list = store.getPositions(lview.getProductCodeSelected());
+			BoughtProductStore.getStore().addProduct(list);
+			store.remove(lview.getProductCodeSelected());
+			Toast.makeText(getActivity(), "Los productos marcados se han marcado como marcados.", Toast.LENGTH_LONG).show();
 			break;
 		default:
 			break;
