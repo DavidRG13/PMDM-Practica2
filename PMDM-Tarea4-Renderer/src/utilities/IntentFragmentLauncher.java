@@ -1,6 +1,8 @@
 package utilities;
 
+import java.io.Serializable;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.foc.activities.AddProductActivity;
 import com.foc.activities.DetailsProductActivity;
+import com.foc.model.ProductType;
 
 public class IntentFragmentLauncher {
 	
@@ -39,6 +42,12 @@ public class IntentFragmentLauncher {
 	        if(fragment.isVisible())
 	            return fragment;
 	    return null;
+	}
+	
+	public static void openActivity(Activity ctx, Class<?> cls, ProductType product){
+		Intent intent = new Intent(ctx, cls);
+		intent.putExtra("productType", (Serializable) product);
+		ctx.startActivity(intent);
 	}
 
 }

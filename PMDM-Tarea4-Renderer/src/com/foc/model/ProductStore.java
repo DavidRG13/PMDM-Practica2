@@ -1,7 +1,6 @@
 package com.foc.model;
 
 import java.util.ArrayList;
-import android.util.Log;
 
 public class ProductStore implements Store {
 	
@@ -32,8 +31,6 @@ public class ProductStore implements Store {
 	@Override
 	public void addProduct(String name, double price, String description, String icon){
 		lista.add(new General_Product(new Product(getCodeForANewProduct(), name, price, description, icon)));
-		Log.e("AQUIIII", "tamaño lista "+ lista.size());
-		Log.e("AQUIIII", "instancia "+ this.toString());
 	}
 	
 	@Override
@@ -44,6 +41,12 @@ public class ProductStore implements Store {
 	@Override
 	public void removeProduct(int code){
 		lista.remove(findProduct(code));
+	}
+	
+	@Override
+	public void remove(ArrayList<Integer> productPositions) {
+		for(int i : productPositions)
+			lista.remove(i);
 	}
 	
 	@Override

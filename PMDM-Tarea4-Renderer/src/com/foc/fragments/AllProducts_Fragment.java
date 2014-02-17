@@ -1,7 +1,6 @@
 package com.foc.fragments;
 
-import java.io.Serializable;
-
+import utilities.IntentFragmentLauncher;
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
@@ -11,8 +10,6 @@ import com.foc.model.Product;
 import com.foc.model.ProductStore;
 import com.foc.model.ProductType;
 import com.foc.tarea4.R;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,7 +19,6 @@ import android.view.ViewGroup;
 
 public class AllProducts_Fragment extends Fragment implements ProductListObserver{
 	
-	private View view;
 	private ProductListView lview;
 	
 	public AllProducts_Fragment() {}
@@ -31,7 +27,7 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		setHasOptionsMenu(true);
 		
-		view = inflater.inflate(R.layout.fragment_all_products, container, false);
+		View view = inflater.inflate(R.layout.fragment_all_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_all_products);
 		lview.init(ProductStore.getStore().getList(), this, R.menu.delete_buy);
 		return view;
@@ -47,7 +43,7 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.action_add:
-	        	openActivity(AddProductActivity.class, new General_Product());
+	        	IntentFragmentLauncher.openActivity(getActivity(), AddProductActivity.class, new General_Product());
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -57,18 +53,16 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 	@Override
 	public void onListItemClick(int productCode) {
 		ProductType productType = new General_Product();
-		Product product = new Product();
-		product.setCode(productCode);
-		productType.setProduct(product);
+		productType.setProduct(new Product(productCode));
 		
-		openActivity(DetailsProductActivity.class, productType);
+		IntentFragmentLauncher.openActivity(getActivity(), DetailsProductActivity.class, productType);
 	}
 	
 	@Override
 	public void actionItemClicked(int itemId) {
 		switch (itemId) {
 		case R.id.action_delete_contextual:
-			//TODO delete products
+			ProductStore.getStore().remove(lview.getProductCodeSelected());
 			break;
 		case R.id.action_buy_contextual:
 			//TODO buy products
@@ -76,12 +70,6 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 		default:
 			break;
 		}
-	}
-	
-	private void openActivity(Class<?> cls, ProductType product){
-		Intent intent = new Intent(getActivity(), cls);
-		intent.putExtra("productType", (Serializable) product);
-		startActivity(intent);
 	}
 
 }

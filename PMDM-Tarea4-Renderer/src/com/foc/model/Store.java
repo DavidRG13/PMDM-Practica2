@@ -20,4 +20,6 @@ public interface Store{
 	
 	public int getCodeForANewProduct();
 
+	void remove(ArrayList<Integer> productPositions);
+
 }

@@ -1,9 +1,7 @@
 package com.foc.model;
 
 import java.io.Serializable;
-
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,6 +66,26 @@ public abstract class ProductType implements Serializable{
 	public View render(){
 		if (view == null) inflate();
 		return renderProduct();
+	}
+	
+	public int getProductCode(){
+		return product.getCode();
+	}
+	
+	public String getProductName(){
+		return product.getName();
+	}
+	
+	public String getProductDescription(){
+		return product.getDescription();
+	}
+	
+	public String getProductImage(){
+		return product.getImage();
+	}
+	
+	public double getProductPrice(){
+		return product.getPrice();
 	}
 	
 	public abstract void inflate();

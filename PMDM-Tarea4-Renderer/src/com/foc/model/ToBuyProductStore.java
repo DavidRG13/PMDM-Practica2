@@ -71,5 +71,11 @@ public class ToBuyProductStore implements Store{
 				return i;
 		return -1;
 	}
+	
+	@Override
+	public void remove(ArrayList<Integer> productPositions) {
+		for(Integer i : productPositions)
+			lista.remove(i);
+	}
 
 }

@@ -1,8 +1,6 @@
 package com.foc.adapters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -14,7 +12,7 @@ import com.foc.tarea4.R;
 
 public class Adapter extends ArrayAdapter<ProductType>{
 	
-	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
+//	private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
 	private OnClickListenerProvider onClickListenerProvider;
 	
 	public Adapter(Context context, ArrayList<ProductType> datos, OnClickListenerProvider onClickListenerProvider) {
@@ -25,7 +23,7 @@ public class Adapter extends ArrayAdapter<ProductType>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
 		ProductType product = getItem(position);
-		product.setContext((Activity) getContext()); // funciona????? o tiene que ser Activity
+		product.setContext((Activity) getContext());
 		product.setView(convertView);
 		product.setListener(onClickListenerProvider.getOnClickListener(position));
 		return product.render();
@@ -41,28 +39,25 @@ public class Adapter extends ArrayAdapter<ProductType>{
 		return getCount();
 	}
 	
-	public void setNewSelection(int position, boolean value) {
-        mSelection.put(position, value);
-        notifyDataSetChanged();
-    }
+//	public void setNewSelection(int position, boolean value) {
+//        mSelection.put(position, value);
+//    }
 
-    public boolean isPositionChecked(int position) {
-        Boolean result = mSelection.get(position);
-        return result == null ? false : result;
-    }
+//    public boolean isPositionChecked(int position) {
+//        Boolean result = mSelection.get(position);
+//        return result == null ? false : result;
+//    }
 
-    public Set<Integer> getCurrentCheckedPosition() {
-        return mSelection.keySet();
-    }
-
-    public void removeSelection(int position) {
-        mSelection.remove(position);
-        notifyDataSetChanged();
-    }
-
-    public void clearSelection() {
-        mSelection = new HashMap<Integer, Boolean>();
-        notifyDataSetChanged();
-    }
+//    public Set<Integer> getCurrentCheckedPosition() {
+//        return mSelection.keySet();
+//    }
+//
+//    public void removeSelection(int position) {
+//        mSelection.remove(position);
+//    }
+//
+//    public void clearSelection() {
+//        mSelection = new HashMap<Integer, Boolean>();
+//    }
 
 }

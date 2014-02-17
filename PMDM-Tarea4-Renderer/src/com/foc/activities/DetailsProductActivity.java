@@ -28,7 +28,7 @@ public class DetailsProductActivity extends Activity {
 		setupActionBar();
 		
 		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
-		product = productType.getStore().findProduct(productType.getProduct().getCode());
+		product = productType.getStore().findProduct(productType.getProductCode());
 	}
 	
 	@Override
@@ -75,14 +75,14 @@ public class DetailsProductActivity extends Activity {
 	}
 	
 	private void fillFieldsWithData() {
-		name.setText(product.getProduct().getName());
-		price.setText(String.valueOf(product.getProduct().getPrice()));
-		description.setText(product.getProduct().getDescription());
-		category.setText(product.getProduct().getImage());
+		name.setText(product.getProductName());
+		price.setText(String.valueOf(product.getProductPrice()));
+		description.setText(product.getProductDescription());
+		category.setText(product.getProductImage());
 	}
 	
 	private void deleteProduct(){
-		product.getStore().removeProduct(product.getProduct().getCode());
+		product.getStore().removeProduct(product.getProductCode());
 		finish();
 	}
 

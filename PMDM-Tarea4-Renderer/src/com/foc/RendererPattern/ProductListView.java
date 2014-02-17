@@ -1,10 +1,8 @@
 package com.foc.RendererPattern;
 
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-
 import com.foc.adapters.Adapter;
 import com.foc.model.ProductType;
 import com.foc.tarea4.R;
@@ -21,6 +18,7 @@ import com.foc.tarea4.R;
 public class ProductListView extends ListView implements OnItemClickListener, OnItemLongClickListener, OnClickListenerProvider{
 	
 	private ArrayList<ProductType> data;
+	private ArrayList<Integer> productCodeSelected;
 	private Adapter adapter;
 	private ProductListObserver observer;
 	private int idContextualMenu;
@@ -46,11 +44,10 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	
 	private void initialize(){
 		adapter = new Adapter(getContext(), data, this);
+		productCodeSelected = new ArrayList<Integer>();
 		setAdapter(adapter);
 		setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		setMultiChoiceModeListener(new MultiChoiceModeListener() {
-			
-			private int selectedCount = 0;
 			
 			@Override
 			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -59,13 +56,13 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 			
 			@Override
 			public void onDestroyActionMode(ActionMode mode) {
-				adapter.clearSelection();
+				clearSelection();
 				deselectItems();
 			}
 			
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				selectedCount = 0;
+				clearSelection();
 				mode.getMenuInflater().inflate(idContextualMenu, menu);
 				return true;
 			}
@@ -79,25 +76,48 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 			
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-				if(checked){
-					selectedCount ++;
-					adapter.setNewSelection(position, checked);
-				}else{
-					selectedCount --;
-					adapter.removeSelection(position);
-				}
-				mode.setTitle(selectedCount +" seleccionados");
+				// funciona este checked o necesito preguntar si la posicion esta chaked o no
+				if(checked)
+					setNewSelection(position);
+				else
+					removeSelection(position);
+				mode.setTitle(getSelectedClount() +" seleccionados");
 			}
 			
 			private void close(ActionMode mode){
-				selectedCount = 0;
-				adapter.clearSelection();
-				deselectItems();
+				clearSelection();
 				mode.finish();
 			}
 		});
 		setOnItemClickListener(this);
 		setOnItemLongClickListener(this);
+	}
+	
+	public ArrayList<Integer> getProductCodeSelected() {
+		return productCodeSelected;
+	}
+
+	protected void setNewSelection(int code) {
+		productCodeSelected.add(code);
+	}
+
+	protected void clearSelection() {
+		productCodeSelected.clear();
+		deselectItems();
+	}
+	
+	protected void removeSelection(int code){
+		for(Integer i : productCodeSelected)
+			if(i == code)
+				productCodeSelected.remove(i);
+	}
+	
+	protected int getSelectedClount(){
+		return productCodeSelected.size();
+	}
+	
+	protected boolean isPositionChecked(int position){
+		return productCodeSelected.contains(position);
 	}
 
 	@Override
@@ -109,7 +129,7 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 		ProductType product = (ProductType) adapter.getItem(position);
-		observer.onListItemClick(product.getProduct().getCode());
+		observer.onListItemClick(product.getProductCode());
 	}
 	
 	@Override
@@ -118,15 +138,14 @@ public class ProductListView extends ListView implements OnItemClickListener, On
 	}
 	
 	private void itemChecked(View view, int position) {
-		setItemChecked(position, !adapter.isPositionChecked(position));
-		if(!adapter.isPositionChecked(position))
+		setItemChecked(position, !isPositionChecked(position));
+		if(!isPositionChecked(position))
 			uncheckItem(view);
 		else
 			checkItem(view);
 	}
 	
-	public void notifyChanges(ArrayList list){
-		data = null;
+	public void notifyChanges(ArrayList<ProductType> list){
 		data = list;
 		adapter.notifyDataSetChanged();
 		deselectItems();

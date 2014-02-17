@@ -1,10 +1,7 @@
 package com.foc.activities;
 
-import com.foc.model.Product;
 import com.foc.model.ProductType;
-import com.foc.model.Store;
 import com.foc.tarea4.R;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;

@@ -84,10 +84,10 @@ public class ModifyActivity extends Activity {
 	}
 	
 	private void fillFieldsWithData() {
-		name_textView.setText(product.getProduct().getName());
-		price_textView.setText(String.valueOf(product.getProduct().getPrice()));
-		description_textView.setText(product.getProduct().getDescription());
-		String cat = product.getProduct().getImage();
+		name_textView.setText(product.getProductName());
+		price_textView.setText(String.valueOf(product.getProductPrice()));
+		description_textView.setText(product.getProductDescription());
+		String cat = product.getProductImage();
 		category.setSelection(ProductStore.getStore().getCategoryIndex(cat));
 	}
 	

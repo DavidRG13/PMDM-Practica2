@@ -70,4 +70,10 @@ public class BoughtProductStore implements Store{
 		return -1;
 	}
 
+	@Override
+	public void remove(ArrayList<Integer> productPositions) {
+		for(Integer i : productPositions)
+			lista.remove(i);
+	}
+
 }
