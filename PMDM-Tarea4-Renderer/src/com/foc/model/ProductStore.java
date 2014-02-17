@@ -19,14 +19,29 @@ public class ProductStore implements Store {
 		lista.add(new General_Product(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces")));
 	}
 	
+	@Override
 	public ArrayList<ProductType> getList() {
 		return lista;
+	}
+	
+	@Override
+	public ArrayList<ProductType> getPositions(ArrayList<Integer> arrayList) {
+		ArrayList<ProductType> list = new ArrayList<ProductType>();
+		for(int i : arrayList)
+			list.add(lista.get(i));
+		return list;
 	}
 	
 	@Override
 	public void addProduct(ProductType... products){
 		for(ProductType p : products)
 			addProduct(p.getProductName(), p.getProductPrice(), p.getProductDescription(), p.getProductImage());
+	}
+	
+	@Override
+	public void addProduct(ArrayList<ProductType> products) {
+		for(ProductType p : products)
+			addProduct(p);
 	}
 	
 	@Override

@@ -6,7 +6,11 @@ public interface Store{
 	
 	public ArrayList<ProductType> getList();
 	
+	public ArrayList<ProductType> getPositions(ArrayList<Integer> positions);
+	
 	public void addProduct(ProductType... products);
+	
+	public void addProduct(ArrayList<ProductType> products);
 
 	public void addProduct(String name, double price, String description, String icon);
 

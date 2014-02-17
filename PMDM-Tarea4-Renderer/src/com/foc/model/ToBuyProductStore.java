@@ -18,14 +18,29 @@ public class ToBuyProductStore implements Store{
 		lista.add(new ToBuy_Product(new Product(1,"producto 1", 12.3, "descripcion 1", "comida")));
 	}
 	
+	@Override
 	public ArrayList<ProductType> getList() {
 		return lista;
+	}
+	
+	@Override
+	public ArrayList<ProductType> getPositions(ArrayList<Integer> positions) {
+		ArrayList<ProductType> list = new ArrayList<ProductType>();
+		for(int i : positions)
+			list.add(lista.get(i));
+		return list;
 	}
 
 	@Override
 	public void addProduct(ProductType... products) {
 		for(ProductType p : products)
 			addProduct(p.getProductName(), p.getProductPrice(), p.getProductDescription(), p.getProductImage());
+	}
+	
+	@Override
+	public void addProduct(ArrayList<ProductType> products) {
+		for(ProductType p : products)
+			addProduct(p);
 	}
 
 	@Override
@@ -80,5 +95,7 @@ public class ToBuyProductStore implements Store{
 				return i;
 		return -1;
 	}
+
+	
 
 }

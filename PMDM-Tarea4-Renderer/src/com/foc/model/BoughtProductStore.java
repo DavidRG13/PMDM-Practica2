@@ -16,14 +16,29 @@ public class BoughtProductStore implements Store{
 		lista.add(new Bought_Product(new Product(4,"producto 4", 12.3, "descripcion 4", "dulces")));
 	}
 	
+	@Override
 	public ArrayList<ProductType> getList() {
 		return lista;
+	}
+	
+	@Override
+	public ArrayList<ProductType> getPositions(ArrayList<Integer> positions) {
+		ArrayList<ProductType> list = new ArrayList<ProductType>();
+		for(int i : positions)
+			list.add(lista.get(i));
+		return list;
 	}
 
 	@Override
 	public void addProduct(ProductType... products) {
 		for(ProductType p : products)
 			addProduct(p.getProductName(), p.getProductPrice(), p.getProductDescription(), p.getProductImage());
+	}
+	
+	@Override
+	public void addProduct(ArrayList<ProductType> products) {
+		for(ProductType p : products)
+			addProduct(p);
 	}
 
 	@Override
