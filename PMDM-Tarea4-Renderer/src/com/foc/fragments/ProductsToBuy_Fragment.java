@@ -6,8 +6,8 @@ import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
 import com.foc.activities.DetailsProductActivity;
-import com.foc.model.General_Product;
 import com.foc.model.Product;
+import com.foc.model.ProductStore;
 import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.model.ToBuyProductStore;
@@ -68,7 +68,7 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 	public void actionItemClicked(int itemId) {
 		switch (itemId) {
 		case R.id.action_delete_contextual:
-			//TODO delete products
+			store.remove(lview.getProductCodeSelected());
 			break;
 		case R.id.action_buy_contextual:
 			//TODO buy products
