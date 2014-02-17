@@ -41,6 +41,12 @@ public class ToBuyProductStore implements Store{
 	public void removeProduct(int code) {
 		lista.remove(findProduct(code));
 	}
+	
+	@Override
+	public void remove(ArrayList<Integer> productPositions) {
+		for(Integer i : productPositions)
+			lista.remove(i);
+	}
 
 	@Override
 	public ProductType findProduct(int productCode) {
@@ -70,12 +76,6 @@ public class ToBuyProductStore implements Store{
 			if(findProduct(i) == null)
 				return i;
 		return -1;
-	}
-	
-	@Override
-	public void remove(ArrayList<Integer> productPositions) {
-		for(Integer i : productPositions)
-			lista.remove(i);
 	}
 
 }

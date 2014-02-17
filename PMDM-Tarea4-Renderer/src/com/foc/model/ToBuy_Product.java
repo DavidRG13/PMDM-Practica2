@@ -18,6 +18,8 @@ public class ToBuy_Product extends ProductType{
 		super(context, view, product, listener);
 	}
 
+	public ToBuy_Product() {}
+
 	@Override
 	public void inflate() {
 		super.buildView(R.layout.list_product_view);
@@ -68,7 +70,8 @@ public class ToBuy_Product extends ProductType{
 	}
 	
 	public void setProduct(String name, double price, String description, String icon) {
-		super.setProduct(name, price, description, icon);
+		int code = ToBuyProductStore.getStore().getCodeForANewProduct();
+		setProduct(new Product(code, name, price, description, icon));
 	}
 
 	@Override

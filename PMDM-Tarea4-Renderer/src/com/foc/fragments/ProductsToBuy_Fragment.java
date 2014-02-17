@@ -1,9 +1,17 @@
 package com.foc.fragments;
 
+import static utilities.IntentFragmentLauncher.openActivity;
+
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
+import com.foc.activities.AddProductActivity;
+import com.foc.activities.DetailsProductActivity;
+import com.foc.model.General_Product;
+import com.foc.model.Product;
+import com.foc.model.ProductType;
 import com.foc.model.Store;
 import com.foc.model.ToBuyProductStore;
+import com.foc.model.ToBuy_Product;
 import com.foc.tarea4.R;
 
 import android.os.Bundle;
@@ -12,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class ProductsToBuy_Fragment extends Fragment implements ProductListObserver{
 	
@@ -42,8 +49,7 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 	        case R.id.action_add:
-	            //IntentFragmentLauncher.openAddActivity(this);
-	        	Toast.makeText(getActivity(), "mas pulsado", Toast.LENGTH_LONG).show();
+	        	openActivity(getActivity(), AddProductActivity.class, new ToBuy_Product());
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -52,12 +58,14 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 	
 	@Override
 	public void onListItemClick(int productCode) {
+		ProductType productType = new ToBuy_Product();
+		productType.setProduct(new Product(productCode));
 		
+		openActivity(getActivity(), DetailsProductActivity.class, productType);
 	}
 
 	@Override
 	public void actionItemClicked(int itemId) {
-		//TODO replace with correct actions
 		switch (itemId) {
 		case R.id.action_delete_contextual:
 			//TODO delete products

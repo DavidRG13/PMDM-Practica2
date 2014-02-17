@@ -4,7 +4,6 @@ import com.foc.model.ProductType;
 import com.foc.tarea4.R;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -40,14 +39,10 @@ public class AddProductActivity extends Activity {
 		editText_Desciption = (EditText) findViewById(R.id.editText_ProductDescription_input);
 	}
 
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override
@@ -66,18 +61,10 @@ public class AddProductActivity extends Activity {
             addProduct();
             return true;
 		case R.id.action_cancel:
-            closeActivity();
+            finish();
             return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void closeActivity() {
-		try {
-			finish();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void addProduct() {
@@ -85,10 +72,9 @@ public class AddProductActivity extends Activity {
 		double price = Double.parseDouble(editText_Price.getText().toString());
 		String description = editText_Desciption.getText().toString();
 		String icon = spinner.getSelectedItem().toString();
-		Log.e("AQUIIII", "llamada al añadir producto");
 		productType.setProduct(name, price, description, icon);
 		productType.getStore().addProduct(productType);
-		closeActivity();
+		finish();
 	}
 
 }
