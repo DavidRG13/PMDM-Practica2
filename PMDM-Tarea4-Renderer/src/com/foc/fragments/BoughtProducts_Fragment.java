@@ -8,11 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.DetailsProductActivity;
-import com.foc.model.BoughtProductStore;
 import com.foc.model.Bought_Product;
 import com.foc.model.Product;
 import com.foc.model.ProductType;
