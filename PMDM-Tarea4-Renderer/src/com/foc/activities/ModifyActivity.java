@@ -31,7 +31,7 @@ public class ModifyActivity extends Activity {
 		setupActionBar();
 		
 		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
-		product = productType.getStore().findProduct(productType.getProductCode());
+		product = productType.getStore(this).findProduct(productType.getProductCode());
 		
 		name_textView = (EditText) findViewById(R.id.editText_ProductName_input);
 		price_textView = (EditText) findViewById(R.id.editText_ProductPrice_input);
@@ -78,7 +78,7 @@ public class ModifyActivity extends Activity {
 		price_textView.setText(String.valueOf(product.getProductPrice()));
 		description_textView.setText(product.getProductDescription());
 		String cat = product.getProductImage();
-		category.setSelection(product.getStore().getCategoryIndex(cat));
+		category.setSelection(product.getStore(this).getCategoryIndex(cat));
 	}
 	
 	private void modifyProduct() {
@@ -88,7 +88,7 @@ public class ModifyActivity extends Activity {
 		String icon = category.getSelectedItem().toString();
 		
 		product.setProduct(new Product(product.getProductCode(), name, price, description, icon));
-		Store store = product.getStore();
+		Store store = product.getStore(this);
 		store.updateProduct(product);
 		finish();
 	}

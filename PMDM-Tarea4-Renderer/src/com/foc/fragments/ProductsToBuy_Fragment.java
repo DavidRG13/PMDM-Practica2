@@ -6,11 +6,10 @@ import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
 import com.foc.activities.DetailsProductActivity;
-import com.foc.model.BoughtProductStore;
 import com.foc.model.Product;
 import com.foc.model.ProductType;
 import com.foc.model.Store;
-import com.foc.model.ToBuyProductStore;
+import com.foc.model.StoreProvider;
 import com.foc.model.ToBuy_Product;
 import com.foc.tarea4.R;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		setHasOptionsMenu(true);  
-		store = ToBuyProductStore.getStore();
+		store = StoreProvider.getToBuyProductStore(getActivity());
 		
 		View view = inflater.inflate(R.layout.fragment_tobuy_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_tobuy_products);
@@ -72,7 +71,7 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 			break;
 		case R.id.action_bought_contextual:
 			ArrayList<ProductType> list = store.getPositions(lview.getProductCodeSelected());
-			BoughtProductStore.getStore().addProduct(list);
+			StoreProvider.getBoughtProductStore(getActivity()).addProduct(list);
 			store.remove(lview.getProductCodeSelected());
 			Toast.makeText(getActivity(), "Los productos marcados se han marcado como marcados.", Toast.LENGTH_LONG).show();
 			break;

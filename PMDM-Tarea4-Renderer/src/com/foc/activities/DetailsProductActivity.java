@@ -32,7 +32,7 @@ public class DetailsProductActivity extends Activity {
 		setupActionBar();
 		
 		ProductType productType = (ProductType) getIntent().getSerializableExtra("productType");
-		store = productType.getStore();
+		store = productType.getStore(this);
 		actualProductCode = productType.getProductCode();
 	}
 	
@@ -87,7 +87,7 @@ public class DetailsProductActivity extends Activity {
 	}
 	
 	private void deleteProduct(){
-		product.getStore().remove(product.getProductCode());
+		product.getStore(this).remove(product.getProductCode());
 		finish();
 	}
 

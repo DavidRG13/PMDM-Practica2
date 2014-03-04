@@ -3,6 +3,7 @@ package com.foc.model;
 import com.foc.tarea4.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -74,8 +75,8 @@ public class Bought_Product extends ProductType{
 	}
 
 	@Override
-	public Store getStore() {
-		return BoughtProductStore.getStore();
+	public Store getStore(Context context) {
+		return StoreProvider.getBoughtProductStore(context);
 	}
 
 }

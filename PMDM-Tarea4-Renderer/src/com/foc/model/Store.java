@@ -23,7 +23,5 @@ public interface Store{
 	public ProductType findProduct(int productCode);
 
 	public int getCategoryIndex(String category);
-	
-	public int getCodeForANewProduct();
 
 }

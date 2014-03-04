@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.DetailsProductActivity;
@@ -15,6 +16,7 @@ import com.foc.model.BoughtProductStore;
 import com.foc.model.Bought_Product;
 import com.foc.model.Product;
 import com.foc.model.ProductType;
+import com.foc.model.StoreProvider;
 import com.foc.tarea4.R;
 
 public class BoughtProducts_Fragment extends Fragment implements ProductListObserver{
@@ -29,14 +31,14 @@ public class BoughtProducts_Fragment extends Fragment implements ProductListObse
 		
 		View view = inflater.inflate(R.layout.fragment_bought_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_bought_products);
-		lview.init(BoughtProductStore.getStore().getList(), this, R.menu.delete);
+		lview.init(StoreProvider.getBoughtProductStore(getActivity()).getList(), this, R.menu.delete);
 		return view;
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		lview.notifyChanges(BoughtProductStore.getStore().getList());
+		lview.notifyChanges(StoreProvider.getBoughtProductStore(getActivity()).getList());
 	}
 	
 	@Override
@@ -57,7 +59,7 @@ public class BoughtProducts_Fragment extends Fragment implements ProductListObse
 	public void actionItemClicked(int itemId) {
 		switch (itemId) {
 		case R.id.action_delete_contextual:
-			BoughtProductStore.getStore().remove(lview.getProductCodeSelected());
+			StoreProvider.getBoughtProductStore(getActivity()).remove(lview.getProductCodeSelected());
 			break;
 		default:
 			break;

@@ -1,7 +1,9 @@
 package com.foc.model;
 
 import java.io.Serializable;
+
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -103,7 +105,7 @@ public abstract class ProductType implements Serializable{
 		view = getLayoutInflater().inflate(viewResource, null);
 	}
 	
-	public abstract Store getStore();
+	public abstract Store getStore(Context context);
 
 	public void setProduct(String name, double price, String description, String icon) {
 //		if(store == null)

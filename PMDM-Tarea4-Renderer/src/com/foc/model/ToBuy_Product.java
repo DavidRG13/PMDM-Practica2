@@ -1,6 +1,7 @@
 package com.foc.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -69,14 +70,9 @@ public class ToBuy_Product extends ProductType{
 		priceTextView.setText(String.valueOf(price) + " € ");
 	}
 	
-	public void setProduct(String name, double price, String description, String icon) {
-		int code = getStore().getCodeForANewProduct();
-		setProduct(new Product(code, name, price, description, icon));
-	}
-
 	@Override
-	public Store getStore() {
-		return ToBuyProductStore.getStore();
+	public Store getStore(Context context) {
+		return StoreProvider.getToBuyProductStore(context);
 	}
 	
 }
