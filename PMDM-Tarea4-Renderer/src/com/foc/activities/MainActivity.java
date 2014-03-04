@@ -1,16 +1,19 @@
 package com.foc.activities;
 
 import utilities.IntentFragmentLauncher;
-import com.foc.components.Drawer;
-import com.foc.components.Drawer.DrawerObserver;
-import com.foc.fragments.*;
-import com.foc.tarea4.R;
-import android.os.Bundle;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.foc.components.Drawer;
+import com.foc.components.Drawer.DrawerObserver;
+import com.foc.fragments.AllProducts_Fragment;
+import com.foc.fragments.BoughtProducts_Fragment;
+import com.foc.fragments.ProductsToBuy_Fragment;
+import com.foc.tarea4.R;
 
 public class MainActivity extends FragmentActivity implements DrawerObserver{
 	
