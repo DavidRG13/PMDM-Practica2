@@ -2,7 +2,6 @@ package com.foc.storage;
 
 import java.util.ArrayList;
 
-import utilities.Messenger;
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -48,7 +47,6 @@ public class BoughtProductStorageDB extends StorageDB {
 	
 	@Override
 	protected void insert(Product p) {
-		Messenger.log("codigo del producto en inserBought  "+ p.getCode());
 		if(p.getCode() == 0){
 			int position = (int) insert(DbHelper.PRODUCT_TABLE, getCompleteContentValuesFrom(p));
 			ArrayList<ProductType> readAll = readAllFrom(DbHelper.PRODUCT_TABLE);

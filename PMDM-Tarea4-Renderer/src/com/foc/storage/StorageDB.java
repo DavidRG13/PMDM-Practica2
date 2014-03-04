@@ -120,7 +120,8 @@ public abstract class StorageDB implements Store{
 	public void updateProduct(ProductType updatedProduct) {
 		int code = updatedProduct.getProductCode();
 		db = getWritableDB();
-		db.update(getTable(), getContentValuesFrom(updatedProduct), getPK() +"= ? ", new String[] {String.valueOf(code)});
+		ContentValues productContentValue = getCompleteContentValuesFrom(updatedProduct.getProduct());
+		db.update(DbHelper.PRODUCT_TABLE, productContentValue, ID +"= ? ", new String[] {String.valueOf(code)});
 		db.close();
 	}
 
@@ -146,13 +147,14 @@ public abstract class StorageDB implements Store{
 
 	@Override
 	public ProductType findProduct(int productCode) {
-		String query = SELECT_ALL + getTable() +" WHERE "+ getPK() +" = "+ productCode;
+		ProductType p = null;
+		String query = SELECT_ALL + DbHelper.PRODUCT_TABLE +" WHERE "+ getPK() +" = "+ productCode;
 		db = getWritableDB();
 		Cursor c = db.rawQuery(query, null);
-		db.close();
 		if(c.moveToFirst())
-			return getProductTypeFrom(getProductFrom(c));
-		return null;
+			p = getProductTypeFrom(getProductFrom(c));
+		db.close();
+		return p;
 	}
 	
 	protected ContentValues getCompleteContentValuesFrom (Product p){

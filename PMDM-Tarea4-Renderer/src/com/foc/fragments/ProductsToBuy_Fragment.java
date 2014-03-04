@@ -4,7 +4,13 @@ import static utilities.IntentFragmentLauncher.openActivity;
 
 import java.util.ArrayList;
 
-import utilities.Messenger;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
@@ -16,14 +22,6 @@ import com.foc.model.Store;
 import com.foc.model.StoreProvider;
 import com.foc.model.ToBuy_Product;
 import com.foc.tarea4.R;
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class ProductsToBuy_Fragment extends Fragment implements ProductListObserver{
 	
@@ -76,10 +74,7 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 			break;
 		case R.id.action_bought_contextual:
 			ArrayList<ProductType> list = store.getPositions(lview.getProductCodeSelected());
-			for(ProductType p : list)
-				Messenger.log("boton comprado CAB  codigo   "+ p.getProductCode());
 			StoreProvider.getBoughtProductStore(getActivity()).addProduct(list);
-			//store.remove(lview.getProductCodeSelected());
 			Toast.makeText(getActivity(), "Los productos marcados se han marcado como marcados.", Toast.LENGTH_LONG).show();
 			break;
 		default:

@@ -47,10 +47,13 @@ public class ToBuyProductStorageDB extends StorageDB {
 
 	@Override
 	protected void insert(Product p) {
-		int position = (int) insert(DbHelper.PRODUCT_TABLE, getCompleteContentValuesFrom(p));
-		ArrayList<ProductType> readAll = readAllFrom(DbHelper.PRODUCT_TABLE);
-		ProductType product = readAll.get(position - 1);
-		insert(TABLE, getContentValuesFrom(product.getProduct()));
+		if(p.getCode() == 0){
+			int position = (int) insert(DbHelper.PRODUCT_TABLE, getCompleteContentValuesFrom(p));
+			ArrayList<ProductType> readAll = readAllFrom(DbHelper.PRODUCT_TABLE);
+			ProductType product = readAll.get(position - 1);
+			p = product.getProduct();
+		}
+		insert(TABLE, getContentValuesFrom(p));
 	}
 
 }
