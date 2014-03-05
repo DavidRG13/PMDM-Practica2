@@ -37,14 +37,13 @@ public class ProductsToBuy_Fragment extends Fragment implements ProductListObser
 		
 		View view = inflater.inflate(R.layout.fragment_tobuy_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_tobuy_products);
-		lview.init(store.getList(), this, R.menu.delete_bought);
 		return view;
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		lview.notifyChanges(store.getList());
+		lview.init(store.getList(), this, R.menu.delete_bought);
 	}
 	
 	@Override

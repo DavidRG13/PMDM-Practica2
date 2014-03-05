@@ -1,7 +1,9 @@
 package com.foc.fragments;
 
 import static utilities.IntentFragmentLauncher.openActivity;
+
 import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.foc.RendererPattern.ProductListObserver;
 import com.foc.RendererPattern.ProductListView;
 import com.foc.activities.AddProductActivity;
@@ -31,14 +34,13 @@ public class AllProducts_Fragment extends Fragment implements ProductListObserve
 		
 		View view = inflater.inflate(R.layout.fragment_all_products, container, false);
 		lview = (ProductListView) view.findViewById(R.id.listView_all_products);
-		lview.init(StoreProvider.getProductStore(getActivity()).getList(), this, R.menu.delete_buy);
 		return view;
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		lview.notifyChanges(StoreProvider.getProductStore(getActivity()).getList());
+		lview.init(StoreProvider.getProductStore(getActivity()).getList(), this, R.menu.delete_buy);
 	}
 	
 	@Override
